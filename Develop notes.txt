@@ -1,0 +1,5 @@
+执行条件是CSV已经下载好并放置于download文件夹中，download文件夹的具体位置再配置文件中配置，配置文件再ochestrator中的asset写死
+1 再ochestrator上需要设置的asset：ZXSBSJCJJQRPZLJ 为配置文件位置，每个robot都可以不同
+2 标准模板上InitAllApplications增加了一个入口参数：in_CSVFileList
+3 用queue存储csv文件名，queue名字为：QueueForCSVFilename
+4 删除Queue的需要queue的Delete、Edit、Create权限，同时还要Transaction的Delete权限
