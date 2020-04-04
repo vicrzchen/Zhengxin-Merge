@@ -133,7 +133,7 @@
               </scg:List>
             </ui:MultipleAssign.AssignOperations>
           </ui:MultipleAssign>
-          <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="520,664.8" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+          <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="520,1582.4" sap2010:WorkflowViewState.IdRef="TryCatch_1">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -141,7 +141,7 @@
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
             <TryCatch.Try>
-              <Sequence sap:VirtualizedContainerService.HintSize="425.6,1221.6" sap2010:WorkflowViewState.IdRef="Sequence_4">
+              <Sequence sap:VirtualizedContainerService.HintSize="425.6,1351.2" sap2010:WorkflowViewState.IdRef="Sequence_4">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -165,13 +165,18 @@
                 <ui:WriteCsvFile Encoding="{x:Null}" AddHeaders="True" DataTable="[dtForRemoveDuplicate]" Delimitator="Comma" DisplayName="Write CSV" FilePath="[TempFilename]" sap:VirtualizedContainerService.HintSize="384,155.2" sap2010:WorkflowViewState.IdRef="WriteCsvFile_1" />
                 <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="384,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;copy temp working file to replace result file&quot;]" />
                 <ui:CopyFile ContinueOnError="{x:Null}" Destination="[TargetFilename]" DisplayName="Copy File" sap:VirtualizedContainerService.HintSize="384,160" sap2010:WorkflowViewState.IdRef="CopyFile_1" Overwrite="True" Path="[TempFilename]" />
-                <ui:Delete ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Delete merged original csv files" sap:VirtualizedContainerService.HintSize="384,66.4" sap2010:WorkflowViewState.IdRef="Delete_1" Path="[Config(&quot;FileForMergePath&quot;).ToString+&quot;*.CSV&quot;]">
+                <ui:InvokeCode ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Delete merged original csv files" Code="Array.ForEach(Directory.GetFiles(path,&quot;*.csv&quot;),Sub(x) File.Delete(x))" DisplayName="Invoke code（delete download)" sap:VirtualizedContainerService.HintSize="384,196" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
+                  <ui:InvokeCode.Arguments>
+                    <InArgument x:TypeArguments="x:String" x:Key="path">
+                      <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="Config(&quot;FileForMergePath&quot;).ToString" />
+                    </InArgument>
+                  </ui:InvokeCode.Arguments>
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                </ui:Delete>
+                </ui:InvokeCode>
                 <ui:SetAsset TimeoutMS="{x:Null}" AssetName="ZXSBSJ_Merged_ForFurtherProcess" DisplayName="Set Asset" sap:VirtualizedContainerService.HintSize="384,22.4" sap2010:WorkflowViewState.IdRef="SetAsset_2" Value="[True]" />
               </Sequence>
             </TryCatch.Try>
